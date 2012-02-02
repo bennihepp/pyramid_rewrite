@@ -1,5 +1,9 @@
+=======
+Changes
+=======
+
 0.1
 ---
 
--  Initial version. Working.
+*  Initial version. Working.
 
