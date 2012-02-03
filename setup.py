@@ -3,8 +3,8 @@ import os
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+readme = open(os.path.join(here, 'README.rst')).read()
+changes = open(os.path.join(here, 'CHANGES.rst')).read()
 
 
 requires=['pyramid>=1.3a6']
@@ -13,7 +13,7 @@ setup(
     name='pyramid_rewrite',
     version='0.1',
     description='Small pyramid extension for rewriting urls',
-    long_description=README + '\n\n' + CHANGES,
+    long_description=readme + '\n' + changes,
     classifiers=[
         "Operating System :: OS Independent",
         "License :: OSI Approved :: BSD License",
