@@ -24,7 +24,8 @@ class RewriteSubscriberTest(unittest.TestCase):
         self.config.add_rewrite_rule(
             r'/abc/qwe(?P<num>[0-9]+)/(?P<op>[a-zA-Z]+)',
             '/%(op)s/%(num)s')
-        request = testing.DummyRequest(path='/abc/qwe15/get?id=123')
+        request = testing.DummyRequest(path='/abc/qwe15/get')
+        request.query_string = 'id=123'
         event = NewRequest(request)
         pyramid_rewrite.rewrite_subscriber(event)
         self.assertEqual(request.path_info, r'/get/15')
@@ -35,10 +36,11 @@ class RewriteSubscriberTest(unittest.TestCase):
             r'/(?P<user>[a-zA-Z0-9_]+)/(?P<what>[a-zA-Z0-9_]+)' \
              '/(?P<op>[a-zA-Z]+)',
             '/%(op)s(%(user)s.%(what)s)')
-        request = testing.DummyRequest(path='/root/foo/get?id=123')
+        request = testing.DummyRequest(path='/root/foo/get')
+        request.query_string = 'id=123'
         event = NewRequest(request)
         pyramid_rewrite.rewrite_subscriber(event)
-        self.assertEqual(request.path_info, r'/root.foo.get')
+        self.assertEqual(request.path_info, r'/get(root.foo)')
         self.assertEqual(request.query_string, 'id=123')
 
 def run():
