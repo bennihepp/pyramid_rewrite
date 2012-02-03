@@ -7,6 +7,8 @@ README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 
+requires=['pyramid>=1.3a6']
+
 setup(
     name='pyramid_rewrite',
     version='0.1',
@@ -24,11 +26,13 @@ setup(
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
     packages=find_packages(),
-    install_requires=['pyramid>=1.3a6'],
+    install_requires=requires,
     author='Benjamin Hepp',
     author_email='benjamin.hepp@gmail.com',
     license='BSD',
     url='https://github.com/bennihepp/pyramid_rewrite',
     keywords='pyramid rewrite pylons web',
+    test_require=requires,
+    test_suite='tests',
 )
 
