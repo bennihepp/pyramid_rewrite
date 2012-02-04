@@ -62,11 +62,11 @@ def rewrite_subscriber(event):
     request = event.request
     for pattern, cpattern, target in request.registry.rewrite_rules:
         path_info = request.path_info
-        logger.info('Matching pattern "%s" against "%s" ' \
+        logger.debug('Matching pattern "%s" against "%s" ' \
                     % (pattern, path_info))
         mo = cpattern.match(path_info)
         if mo is not None:
             path_info = target % mo.groupdict()
-            logger.info('Rewriting url: %s --> %s' \
+            logger.debug('Rewriting url: %s --> %s' \
                         % (request.path_info, path_info))
             request.path_info = path_info
