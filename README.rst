@@ -20,6 +20,13 @@ or
 ``easy_install pyramid_rewrite``
 
 -------------
+Compatibility
+-------------
+
+pyramid_rewrite runs with pyramid>=1.3 and python>=2.6 and python>=3.2.
+Other versions might also work.
+
+-------------
 Documentation
 -------------
 
