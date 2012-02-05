@@ -5,7 +5,19 @@ pyramid_rewrite
 Introduction
 ------------
 
-pyramid_rewrite is a small extension for pyramid to rewrite urls before further processing takes place.
+pyramid_rewrite is a small extension for `Pyramid <http://www.pylonsproject.org/>`_ to rewrite urls before further processing takes place.
+
+------------
+Installation
+------------
+
+Just do
+
+``pip install pyramid_rewrite``
+
+or
+
+``easy_install pyramid_rewrite``
 
 -------------
 Documentation
@@ -28,5 +40,5 @@ Usage example::
         # return WSGI application instance
         return config.make_wsgi_app()
 
-Better documentation will follow.
+Better documentation might follow.
 

@@ -35,6 +35,9 @@ from pyramid.events import NewRequest
 logger = logging.getLogger(__name__)
 
 
+__version__ = 0.2
+
+
 # Add configuration directive
 def includeme(config):
     config.add_directive('add_rewrite_rule',

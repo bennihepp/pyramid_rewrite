@@ -11,6 +11,7 @@ dist
 build
 include
 lib
+man
 local
 eggs
 parts

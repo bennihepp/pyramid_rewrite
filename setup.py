@@ -1,5 +1,9 @@
 import os
 
+# this is a hack to prevent an ugly bug when
+# setuptools performs sys.modules restoration
+import multiprocessing
+
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -11,8 +15,8 @@ requires=['pyramid>=1.3a6']
 
 setup(
     name='pyramid_rewrite',
-    version='0.1',
-    description='Small pyramid extension for rewriting urls',
+    version='0.2',
+    description='Small Pyramid extension for rewriting urls',
     long_description=readme + '\n' + changes,
     classifiers=[
         "Operating System :: OS Independent",
@@ -34,6 +38,6 @@ setup(
     url='https://github.com/bennihepp/pyramid_rewrite',
     keywords='pyramid rewrite pylons web',
     test_require=requires,
-    test_suite='tests',
+    test_suite='pyramid_rewrite.tests',
 )
 
