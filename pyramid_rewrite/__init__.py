@@ -30,8 +30,6 @@ Usage example:
 import logging
 import re
 
-from pyramid.events import NewRequest
-
 logger = logging.getLogger(__name__)
 
 
@@ -40,8 +38,8 @@ __version__ = 0.2
 
 # Add configuration directive
 def includeme(config):
-    config.add_directive('add_rewrite_rule',
-                         add_rewrite_rule)
+    config.add_directive('add_rewrite_rule', add_rewrite_rule)
+    config.add_tween('pyramid_rewrite.rewrite_tween_factory')
 
 
 # Configuration directive for adding a rewrite rule
@@ -54,22 +52,25 @@ def add_rewrite_rule(config, pattern, target):
     cpattern = re.compile(tpattern)
     if not hasattr(config.registry, 'rewrite_rules'):
         config.registry.rewrite_rules = []
-        config.add_subscriber(rewrite_subscriber, NewRequest)
     config.registry.rewrite_rules.append((pattern, cpattern, target))
 
+# Tween to perform URL rewriting before a request is handled by Pyramid
+def rewrite_tween_factory(handler, registry):
 
-# Subscriber to the pyramid.events.NewRequest event.
-# This matches the PATH_INFO against all registered patterns
-# and rewrites them on match.
-def rewrite_subscriber(event):
-    request = event.request
-    for pattern, cpattern, target in request.registry.rewrite_rules:
-        path_info = request.path_info
-        logger.debug('Matching pattern "%s" against "%s" ' \
-                    % (pattern, path_info))
-        mo = cpattern.match(path_info)
-        if mo is not None:
-            path_info = target % mo.groupdict()
-            logger.debug('Rewriting url: %s --> %s' \
-                        % (request.path_info, path_info))
-            request.path_info = path_info
+    if not hasattr(registry, 'rewrite_rules'):
+        return handler
+
+    def rewrite_tween(request):
+        for pattern, cpattern, target in request.registry.rewrite_rules:
+            path_info = request.path_info
+            logger.debug('Matching pattern "%s" against "%s" ' \
+                        % (pattern, path_info))
+            mo = cpattern.match(path_info)
+            if mo is not None:
+                path_info = target % mo.groupdict()
+                logger.debug('Rewriting url: %s --> %s' \
+                            % (request.path_info, path_info))
+                request.path_info = path_info
+        return handler(request)
+
+    return rewrite_tween
