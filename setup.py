@@ -4,14 +4,16 @@ import os
 # setuptools performs sys.modules restoration
 import multiprocessing
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 readme = open(os.path.join(here, 'README.rst')).read()
 changes = open(os.path.join(here, 'CHANGES.rst')).read()
 
 
-requires=['pyramid>=1.3a6']
+requires=[
+    'pyramid>=1.3a6',
+]
 
 setup(
     name='pyramid_rewrite',
@@ -37,7 +39,7 @@ setup(
     license='BSD',
     url='https://github.com/bennihepp/pyramid_rewrite',
     keywords='pyramid rewrite pylons web',
-    test_require=requires,
-    test_suite='pyramid_rewrite.tests',
+    tests_require=requires,
+    test_suite='pyramid_rewrite',
 )
 

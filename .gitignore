@@ -34,3 +34,7 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
+env
+env27
+coverage.xml
+nosetests.xml
